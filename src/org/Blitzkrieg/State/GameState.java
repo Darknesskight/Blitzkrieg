@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import org.Blitzkrieg.Entity.ChemSprayer;
 import org.Blitzkrieg.Entity.Cruiser;
 import org.Blitzkrieg.Entity.DirectionBlock;
 import org.Blitzkrieg.Entity.GameMap;
@@ -59,6 +60,8 @@ public class GameState extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+		//Sound music = new Sound("res/sounds/BS5.mp3");
+		//music.loop();
 		penalty = new Vehicle[10];
 		penaltyCount = 0;
 		this.gc = gc;
@@ -79,16 +82,18 @@ public class GameState extends BasicGameState {
 		dead = false;
 		start = new Rectangle(0,0,0,0);
 		waveFinished = true;
+		towerDisplay = new Animation[4];
 		towerDisplay[0] = new Animation(new SpriteSheet("res/images/entities/Sprayer/SprayerAttack.png", 24, 24), 200);
 		towerDisplay[1] = new Animation(new SpriteSheet("res/images/entities/Hosedude/hosedude.png", 24, 24), 300);
 		towerDisplay[2] = new Animation(new SpriteSheet("res/images/entities/WaterCooler/waterCooler.png", 24, 24), 200);
+		towerDisplay[3] = new Animation(new SpriteSheet("res/images/entities/ChemSprayer/ChemSprayer.png", 24, 24), 300);
 	}
 
 	
 	
 	@Override
 	public void keyPressed(int key, char c) {
-		if(TowerToPlace==null){
+		if(TowerToPlace==null && !dead){
 			if(key == Input.KEY_1){
 				TowerToPlace = new Sprayer();
 				try {
@@ -121,6 +126,21 @@ public class GameState extends BasicGameState {
 			}
 			else if(key == Input.KEY_3){
 				TowerToPlace = new WaterCooler();
+				try {
+					TowerToPlace.init(gc, game, mouseX, mouseY);
+					if((int)(Money-TowerToPlace.Amount())>=0){
+						
+						Money -= TowerToPlace.Amount();
+					}
+					else
+						TowerToPlace = null;
+
+				} catch (SlickException e) {
+					e.printStackTrace();
+				}
+			}
+			else if(key == Input.KEY_4){
+				TowerToPlace = new ChemSprayer();
 				try {
 					TowerToPlace.init(gc, game, mouseX, mouseY);
 					if((int)(Money-TowerToPlace.Amount())>=0){
@@ -181,13 +201,21 @@ public class GameState extends BasicGameState {
 		g.drawString("Score: " + Score, 0,580);
 		g.drawString("Wave:" + wave, 700, 0);
 		for(int i =0; i<towerDisplay.length; i++){
-			g.drawAnimation(towerDisplay[i], 40 + 1, 1);
+			g.drawString(i+1+ "", 205 + i*60, 540);
+			g.drawAnimation(towerDisplay[i], 200 + i*60, 560);
 		}
-		if(waveFinished){
+		g.drawString("$100k", 200, 585);
+		g.drawString("$200k", 260, 585);
+		g.drawString("$50k", 320, 585);
+		g.drawString("$250k", 380, 585);
+		if(waveFinished && !dead){
 			g.drawString("Press Enter To Start Wave", 250, 250);
 		}
-		else{
+		else if(!waveFinished){
 			g.drawString("Cars Left to spawn:" + numCars, 250, 0);
+		}
+		if(dead){
+			g.drawString("You lose. Return to your pointless existence", 150, 250);
 		}
 	}
 	

@@ -124,6 +124,7 @@ public class Vehicle extends Entity{
 	}
 	public void ArmorDamage(double amount){
 		if(!(armour <= 0)){
+			//System.out.println(armour);
 			armour-= amount;
 			if(armour <=0){
 				armour = 0;

@@ -2,6 +2,7 @@ package org.Blitzkrieg.State;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -33,8 +34,9 @@ public class MenuState extends BasicGameState {
 
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g)
 			throws SlickException {
+		g.drawImage(new Image("res/images/splash.png"), 0, 0);
 		// TODO Auto-generated method stub
 
 	}

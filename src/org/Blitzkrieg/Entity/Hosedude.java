@@ -43,7 +43,7 @@ public class Hosedude extends Tower{
 			throws SlickException {
 		TargetCheck(((GameState)game.getCurrentState()).getCars());
 		if(spray.isStopped() && !dead && placed){
-			System.out.println(moral);
+			//System.out.println(moral);
 			moral-=5;
 			if(moral<=0){
 				dead = true;
