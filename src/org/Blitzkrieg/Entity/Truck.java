@@ -26,10 +26,10 @@ public class Truck extends Vehicle{
 		speed = .5;
 		amount = 40;
 		maxHp = 800;
-		RightVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/Truck.png", 123, 50), 300);
-		LeftVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/TruckLeft.png", 123, 50), 300);
-		UpVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/TruckUp.png", 50, 123), 300);
-		DownVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/TruckDown.png", 50, 123), 300);
+		RightVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/truck.png", 123, 50), 300);
+		LeftVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/truckLeft.png", 123, 50), 300);
+		UpVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/truckUp.png", 50, 123), 300);
+		DownVehicle = new Animation(new SpriteSheet("res/images/entities/Truck/truckDown.png", 50, 123), 300);
 		super.init(gc, game);
 	}
 	@Override
